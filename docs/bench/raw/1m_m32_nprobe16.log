@@ -1,0 +1,27 @@
+
+database 1000000 x 128  queries 200  nlist=1024  m=32
+data: synthetic(n=1000200, dim=128, seed=0)
+
+exact (ground truth):
+  flat (exact)                       recall@10=1.0000  shortlist=1.0000  p50=57.259ms  p95=70.822ms  qps=17  mem=512.0MB
+
+IVF (full-precision vectors, partitioned):
+  train=20.5s add=4.0s imbalance=1.4593 list_mean=976.56 list_max=4310
+  ivf nprobe=4                       recall@10=0.9910  shortlist=0.9910  p50=0.980ms  p95=1.761ms  qps=999  mem=512.5MB
+  ivf nprobe=8                       recall@10=0.9980  shortlist=0.9980  p50=1.765ms  p95=2.929ms  qps=562  mem=512.5MB
+  ivf nprobe=16                      recall@10=1.0000  shortlist=1.0000  p50=3.422ms  p95=5.844ms  qps=277  mem=512.5MB
+
+IVF-PQ (m=32 bytes per vector):
+  train=49.7s add=22.3s memory=32.655MB (16.0x compression)
+  ivfpq m=32 nprobe=4                recall@10=0.5165  shortlist=0.9675  p50=1.504ms  p95=2.698ms  qps=622  mem=32.7MB
+  ivfpq m=32 nprobe=8                recall@10=0.5185  shortlist=0.9745  p50=2.992ms  p95=5.131ms  qps=335  mem=32.7MB
+  ivfpq m=32 nprobe=16               recall@10=0.5185  shortlist=0.9760  p50=4.928ms  p95=8.007ms  qps=195  mem=32.7MB
+
+IVF-PQ + memmap re-rank (two-stage):
+  wrote 512MB of vectors in 26.7s
+  refine factor=16 (nprobe=16)       recall@10=0.9925  shortlist=1.0000  p50=5.311ms  p95=9.726ms  qps=176  mem=32.7MB
+  refine factor=32 (nprobe=16)       recall@10=0.9995  shortlist=1.0000  p50=5.066ms  p95=8.518ms  qps=187  mem=32.7MB
+  refine factor=64 (nprobe=16)       recall@10=1.0000  shortlist=1.0000  p50=5.181ms  p95=8.687ms  qps=184  mem=32.7MB
+  refine factor=128 (nprobe=16)      recall@10=1.0000  shortlist=1.0000  p50=5.793ms  p95=9.521ms  qps=166  mem=32.7MB
+
+wrote docs/bench/sweep_n1000000_d128.json and docs/bench/sweep_n1000000_d128.md

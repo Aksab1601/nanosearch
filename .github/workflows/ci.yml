@@ -1,0 +1,107 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  # A new push supersedes an in-flight run on the same ref.
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: test (python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[service,bench,dev]"
+
+      - name: Lint
+        run: ruff check .
+
+      - name: Check formatting
+        run: ruff format --check .
+
+      - name: Type check
+        run: mypy
+
+      - name: Test
+        run: pytest -q --cov=nanosearch --cov-report=term-missing --cov-fail-under=85
+
+  smoke:
+    name: end-to-end smoke test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install
+        run: pip install -e ".[service,bench]"
+
+      # Builds an index, queries it, and serves it: the three things a user
+      # does first. Unit tests pass without any of these working end to end.
+      - name: Build and query an index
+        run: |
+          nanosearch build --out ./ci-index
+          nanosearch stats ./ci-index
+          nanosearch search ./ci-index "why is my database query slow" -k 3
+
+      - name: Start the service and check it answers
+        run: |
+          NANOSEARCH_INDEX=./ci-index python -m uvicorn nanosearch.service.app:app \
+            --host 127.0.0.1 --port 8000 &
+          for attempt in $(seq 1 30); do
+            if curl -sf http://127.0.0.1:8000/healthz > /dev/null; then break; fi
+            sleep 1
+          done
+          curl -sf http://127.0.0.1:8000/healthz
+          curl -sf -X POST http://127.0.0.1:8000/search \
+            -H 'Content-Type: application/json' \
+            -d '{"query": "how do neural networks learn", "k": 3}' | tee /tmp/search.json
+          python -c "import json; r = json.load(open('/tmp/search.json')); assert r['results'], r; print('results:', len(r['results']))"
+
+      # A benchmark that cannot run is a benchmark whose numbers will quietly
+      # rot. Tiny parameters keep it to a few seconds.
+      - name: Run the benchmarks at toy scale
+        run: |
+          python benchmarks/bench_sweep.py --n 3000 --dim 32 --nlist 32 --m 8 \
+            --queries 40 --latency-queries 20 --nprobe 1 4 32 --factor 4 \
+            --out /tmp/bench
+          python benchmarks/bench_text_quality.py
+
+  docker:
+    name: docker build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the image
+        run: docker build -t nanosearch:ci .
+      - name: Run the container and check health
+        run: |
+          docker run -d --name nanosearch -p 8000:8000 nanosearch:ci
+          for attempt in $(seq 1 45); do
+            if curl -sf http://127.0.0.1:8000/healthz > /dev/null; then break; fi
+            sleep 1
+          done
+          curl -sf http://127.0.0.1:8000/healthz
+          docker rm -f nanosearch

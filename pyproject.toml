@@ -1,0 +1,74 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nanosearch"
+version = "0.1.0"
+description = "A vector search engine built from scratch: IVF-PQ approximate nearest neighbour indexing with a FastAPI service."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Akarsh Sabharwal" }]
+keywords = ["vector-search", "ann", "ivf", "product-quantization", "information-retrieval", "rag"]
+classifiers = [
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+# The index core depends on NumPy only. Everything else is opt-in.
+dependencies = ["numpy>=1.24"]
+
+[project.optional-dependencies]
+# The text embedder (TF-IDF + randomized SVD) needs nothing extra: it is
+# implemented on NumPy, so there is no `text` extra to install.
+# REST service.
+service = ["fastapi>=0.110", "uvicorn[standard]>=0.27", "pydantic>=2.6"]
+# Transformer embeddings (downloads a model on first use).
+transformers = ["sentence-transformers>=2.5"]
+# Benchmarks and charts.
+bench = ["matplotlib>=3.7"]
+dev = [
+  "pytest>=8.0",
+  "pytest-cov>=4.1",
+  "ruff>=0.4",
+  "mypy>=1.9",
+  "httpx>=0.27",
+]
+
+[project.scripts]
+nanosearch = "nanosearch.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["nanosearch*"]
+
+[tool.setuptools.package-data]
+nanosearch = ["py.typed", "data/*.jsonl", "service/static/*.html"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "C4", "SIM", "RET", "ARG", "N"]
+ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+# A pytest fixture is often requested for the state it sets up rather than for
+# a value the test body names, which ARG002 cannot distinguish from a mistake.
+"tests/*" = ["ARG001", "ARG002"]
+
+[tool.mypy]
+warn_unused_configs = true
+disallow_untyped_defs = true
+warn_redundant_casts = true
+warn_unused_ignores = false
+ignore_missing_imports = true
+files = ["nanosearch"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q --strict-markers"
+markers = ["slow: marks slow benchmarks-style tests"]

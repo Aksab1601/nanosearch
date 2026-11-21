@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+
+# Tooling caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Built indexes and benchmark scratch. The *results* in docs/bench are
+# committed on purpose -- they are the evidence behind the README's numbers --
+# but the raw vector files they stream through are large and regenerable.
+index/
+ci-index/
+*.f32
+*.npz
+!docs/bench/*.npz
+
+# OS noise
+.DS_Store
+Thumbs.db

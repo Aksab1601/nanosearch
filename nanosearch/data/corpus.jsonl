@@ -1,0 +1,96 @@
+{"text": "Gradient descent updates model weights by stepping in the direction that most steeply reduces the loss, with the step size set by the learning rate.", "topic": "machine-learning"}
+{"text": "Backpropagation computes the gradient of the loss with respect to every weight in a neural network by applying the chain rule backwards through the layers.", "topic": "machine-learning"}
+{"text": "Overfitting happens when a model memorises its training data instead of the pattern behind it, so training loss keeps falling while validation loss climbs.", "topic": "machine-learning"}
+{"text": "Dropout randomly disables a fraction of neurons during training, which stops the network from leaning too heavily on any single pathway.", "topic": "machine-learning"}
+{"text": "A convolutional layer slides a small learned filter across an image, which lets the same edge detector work no matter where the edge appears.", "topic": "machine-learning"}
+{"text": "The attention mechanism lets a model weigh every other position in the input when encoding a token, which is how transformers handle long-range dependencies.", "topic": "machine-learning"}
+{"text": "Batch normalisation rescales layer activations using batch statistics, which smooths the loss surface and allows a larger learning rate.", "topic": "machine-learning"}
+{"text": "Cross-validation splits the data into folds and trains once per fold, giving a more reliable estimate of generalisation than a single holdout split.", "topic": "machine-learning"}
+{"text": "An embedding maps a discrete token to a dense vector, placing items used in similar contexts close together in the vector space.", "topic": "machine-learning"}
+{"text": "Reinforcement learning trains an agent through reward rather than labels, so the hard part is credit assignment across a long sequence of actions.", "topic": "machine-learning"}
+{"text": "The bias-variance trade-off says a simple model misses real structure while a flexible one chases noise, and the best model balances the two errors.", "topic": "machine-learning"}
+{"text": "Tokenisation splits raw text into the units a language model actually sees, and subword schemes let a fixed vocabulary cover words it never met in training.", "topic": "machine-learning"}
+{"text": "A B-tree keeps data sorted in a shallow balanced structure, so a database can find any row in a handful of disk reads even across billions of rows.", "topic": "databases"}
+{"text": "A database index trades write speed and storage for read speed, which is why indexing every column makes inserts slow and queries no faster.", "topic": "databases"}
+{"text": "ACID transactions guarantee that a group of writes either all take effect or none do, even if the server loses power halfway through.", "topic": "databases"}
+{"text": "A write-ahead log records an intended change before applying it, so a crashed database can replay the log and recover a consistent state.", "topic": "databases"}
+{"text": "Normalisation removes duplicated facts from a schema, while denormalisation deliberately puts some back to avoid expensive joins on hot queries.", "topic": "databases"}
+{"text": "A query planner estimates the cost of different execution strategies and picks one, which is why stale table statistics can produce a terrible plan.", "topic": "databases"}
+{"text": "Sharding splits one logical table across many machines by a key, and a badly chosen key concentrates traffic on a single hot shard.", "topic": "databases"}
+{"text": "Replication keeps copies of data on multiple nodes for durability and read capacity, at the cost of replication lag between primary and replicas.", "topic": "databases"}
+{"text": "A hash join builds a hash table from the smaller relation and probes it with the larger one, which beats a nested loop when neither side is indexed.", "topic": "databases"}
+{"text": "Connection pooling reuses open database connections, because the handshake and authentication often cost more than the query itself.", "topic": "databases"}
+{"text": "An LSM tree buffers writes in memory and flushes sorted runs to disk, trading read amplification for very fast sequential writes.", "topic": "databases"}
+{"text": "Eventual consistency accepts that replicas disagree for a while, which is a reasonable trade when availability matters more than reading the newest value.", "topic": "databases"}
+{"text": "A light year is the distance light travels in a year, roughly nine and a half trillion kilometres, so it measures distance and not time.", "topic": "astronomy"}
+{"text": "A star spends most of its life fusing hydrogen into helium, and leaves the main sequence once the hydrogen in its core runs out.", "topic": "astronomy"}
+{"text": "A black hole forms when a massive star collapses so far that not even light can escape from inside its event horizon.", "topic": "astronomy"}
+{"text": "Redshift stretches the light of receding galaxies towards longer wavelengths, and the further away a galaxy is the faster it appears to recede.", "topic": "astronomy"}
+{"text": "The habitable zone is the orbital band where a planet could hold liquid water, which depends on how bright and hot its star is.", "topic": "astronomy"}
+{"text": "A supernova briefly outshines an entire galaxy and seeds surrounding space with the heavy elements forged in the dying star.", "topic": "astronomy"}
+{"text": "Tidal locking leaves one face of a moon permanently towards its planet, which is why we always see the same side of the Moon.", "topic": "astronomy"}
+{"text": "Astronomers find most exoplanets by watching a star dim slightly as a planet transits across it, repeating on a fixed period.", "topic": "astronomy"}
+{"text": "A nebula is a cloud of gas and dust, and the denser regions of one are where new stars condense under their own gravity.", "topic": "astronomy"}
+{"text": "Parallax measures stellar distance by the tiny shift in a star's apparent position as the Earth moves from one side of its orbit to the other.", "topic": "astronomy"}
+{"text": "The cosmic microwave background is faint radiation left over from the early universe, and its tiny temperature ripples trace the seeds of galaxies.", "topic": "astronomy"}
+{"text": "A telescope's resolving power grows with aperture, which is why large mirrors see finer detail than small ones regardless of magnification.", "topic": "astronomy"}
+{"text": "Browning meat before braising builds flavour through the Maillard reaction, which needs a dry surface and a pan hot enough to sear rather than steam.", "topic": "cooking"}
+{"text": "Resting a roast after cooking lets the juices redistribute, so slicing it immediately spills onto the board what should have stayed in the meat.", "topic": "cooking"}
+{"text": "Salting vegetables draws out water by osmosis, which is why salted cucumber slices go limp and release liquid within minutes.", "topic": "cooking"}
+{"text": "Bread dough rises because yeast ferments sugars into carbon dioxide, and the gluten network traps those bubbles and holds the shape.", "topic": "cooking"}
+{"text": "An emulsion suspends oil in water with the help of an emulsifier such as egg yolk, which is how mayonnaise stays thick instead of splitting.", "topic": "cooking"}
+{"text": "Blanching vegetables in boiling water then chilling them in ice halts the enzymes that dull their colour and texture.", "topic": "cooking"}
+{"text": "A roux of flour cooked in fat thickens a sauce, and the longer it cooks the darker and nuttier it tastes but the less it thickens.", "topic": "cooking"}
+{"text": "Acid brightens a finished dish, so a squeeze of lemon at the end often fixes a soup that tastes flat despite enough salt.", "topic": "cooking"}
+{"text": "Low slow heat turns tough collagen in cheap cuts into gelatin, which is why shoulder and shin reward hours of braising.", "topic": "cooking"}
+{"text": "Cooking pasta in well-salted water seasons it from the inside, and the starchy cooking water helps a sauce cling to the noodles.", "topic": "cooking"}
+{"text": "Caramelising onions takes far longer than most recipes claim, because the sugars only brown properly once the water has cooked off.", "topic": "cooking"}
+{"text": "A sharp knife is safer than a dull one, since it cuts where you aim it instead of sliding off the skin of a tomato or onion.", "topic": "cooking"}
+{"text": "Cadence is how many pedal revolutions you turn per minute, and most riders are most efficient somewhere between eighty and ninety.", "topic": "cycling"}
+{"text": "Drafting behind another rider cuts the air resistance you face substantially, which is why a group travels faster than any of its members alone.", "topic": "cycling"}
+{"text": "Correct saddle height leaves a slight bend in the knee at the bottom of the stroke, and a saddle set too high rocks the hips and strains the back.", "topic": "cycling"}
+{"text": "Lower tyre pressure increases grip and comfort on rough roads, and beyond a point it rolls faster too because the bike stops bouncing.", "topic": "cycling"}
+{"text": "Interval training alternates hard efforts with recovery, which raises the power you can sustain more quickly than steady riding alone.", "topic": "cycling"}
+{"text": "A bike's gear ratio sets how far one pedal revolution carries you, so a smaller front ring makes a steep climb manageable.", "topic": "cycling"}
+{"text": "Cleaning and lubricating a chain regularly costs minutes and saves a drivetrain, because grit held in old lubricant grinds down the cogs.", "topic": "cycling"}
+{"text": "Climbing seated recruits different muscles than standing, and most riders save standing for the steepest ramps or to relieve stiffness.", "topic": "cycling"}
+{"text": "Eating and drinking early on a long ride matters, since once you are depleted the stomach struggles to absorb enough to catch up.", "topic": "cycling"}
+{"text": "Disc brakes keep their bite in the wet where rim brakes fade, which is the main reason they took over road bikes.", "topic": "cycling"}
+{"text": "Cornering works best with the outside pedal down and the weight on it, looking through the turn to where you want to come out.", "topic": "cycling"}
+{"text": "Recovery days are part of training rather than time off, because adaptation to hard efforts happens while you are resting.", "topic": "cycling"}
+{"text": "A major scale has a fixed pattern of whole and half steps, which is why every major key sounds alike despite starting on a different note.", "topic": "music"}
+{"text": "An interval is the distance between two pitches, and the perfect fifth sounds stable because the frequencies sit in a simple ratio.", "topic": "music"}
+{"text": "A chord progression creates tension and release, and resolving the dominant back to the tonic is the oldest way of ending a phrase.", "topic": "music"}
+{"text": "Minor keys sound darker than major ones mostly because the third of the scale sits a half step lower.", "topic": "music"}
+{"text": "Syncopation places emphasis off the main beat, which is what makes a rhythm feel like it is pulling against the pulse.", "topic": "music"}
+{"text": "A time signature says how many beats fill a bar and which note value counts as a beat, so the same melody feels different in three or four.", "topic": "music"}
+{"text": "Modulation moves a piece into a new key, and a smooth modulation usually travels through a chord the two keys share.", "topic": "music"}
+{"text": "Counterpoint weaves independent melodies that work together, so each line stands alone and the combination still makes harmonic sense.", "topic": "music"}
+{"text": "Timbre is why a violin and a flute playing the same pitch sound nothing alike, and it comes from the pattern of overtones each produces.", "topic": "music"}
+{"text": "An inversion rearranges which note of a chord sits lowest, which changes the colour of the harmony without changing the chord.", "topic": "music"}
+{"text": "Equal temperament divides the octave into twelve identical steps, making every key equally usable and every interval slightly impure.", "topic": "music"}
+{"text": "A pentatonic scale drops the two notes most likely to clash, which is why it is forgiving for improvising over a simple progression.", "topic": "music"}
+{"text": "Most seedlings fail from too much water rather than too little, because waterlogged roots cannot take up the oxygen they need.", "topic": "gardening"}
+{"text": "Compost improves both sandy and heavy clay soil, loosening the one and helping the other hold water and nutrients.", "topic": "gardening"}
+{"text": "Mulch on a bed keeps moisture in the soil, holds the temperature steady and smothers the weed seeds that need light to sprout.", "topic": "gardening"}
+{"text": "A plant label asking for full sun means six hours or more of direct light, and a tomato in deep shade will grow leaves but set little fruit.", "topic": "gardening"}
+{"text": "Pinching out the growing tip of a young plant makes it branch sideways, trading height for a bushier shape and more flowers.", "topic": "gardening"}
+{"text": "Hardening off moves seedlings outdoors gradually, because a plant raised in still warm air is easily killed by its first windy night.", "topic": "gardening"}
+{"text": "Rotating crops between beds each year starves the pests and diseases that build up when the same family returns to the same soil.", "topic": "gardening"}
+{"text": "Soil pH decides which nutrients a plant can actually absorb, so a deficiency sometimes means the wrong pH rather than missing fertiliser.", "topic": "gardening"}
+{"text": "Deep infrequent watering encourages roots to grow downwards, while a daily sprinkle keeps them shallow and dependent.", "topic": "gardening"}
+{"text": "Pruning a fruit tree in winter opens the canopy to light and air, which improves ripening and reduces fungal disease.", "topic": "gardening"}
+{"text": "Companion planting pairs species that help each other, often by attracting the predators that eat the pests of their neighbour.", "topic": "gardening"}
+{"text": "Perennials return each year from the same roots while annuals must be resown, which is why a perennial bed is cheaper over time.", "topic": "gardening"}
+{"text": "A river delta forms where a river slows as it meets the sea and drops the sediment it has been carrying.", "topic": "geography"}
+{"text": "Mountain ranges create rain shadows: air rises and sheds its moisture on the windward slope and arrives dry on the far side.", "topic": "geography"}
+{"text": "Plate tectonics explains both earthquakes and mountain building, since most of each happens where two plates meet.", "topic": "geography"}
+{"text": "Ocean currents move heat around the planet, which is why some coastal cities are far milder than inland places at the same latitude.", "topic": "geography"}
+{"text": "A fjord is a glacial valley later flooded by the sea, which is why its walls are steep and its water unusually deep.", "topic": "geography"}
+{"text": "Time zones follow political borders as much as longitude, so a single wide country can insist on one clock throughout.", "topic": "geography"}
+{"text": "Deserts are defined by how little precipitation they receive rather than by heat, which is why Antarctica counts as one.", "topic": "geography"}
+{"text": "A watershed is the area draining into one river, so land use far upstream changes the water quality near the mouth.", "topic": "geography"}
+{"text": "Monsoons reverse direction seasonally as land heats and cools faster than the neighbouring ocean.", "topic": "geography"}
+{"text": "Map projections all distort something, and the familiar rectangular world map exaggerates the size of land near the poles.", "topic": "geography"}
+{"text": "Permafrost is ground frozen for years at a stretch, and thawing it destabilises anything built on top and releases trapped carbon.", "topic": "geography"}
+{"text": "An archipelago often traces a volcanic hotspot, with the islands ageing in sequence as the plate creeps over the plume.", "topic": "geography"}
