@@ -8,7 +8,7 @@ Produces, in light and dark variants:
   on y (log), one line per index backend. This is the standard way the ANN
   literature presents an index, because neither axis means anything alone: an
   index is a *curve*, and the only fair comparison is at equal recall.
-* ``memory[_dark].png`` -- what each backend costs in RAM for the same corpus.
+* ``memory[_dark].png`` -- estimated index data storage for the same corpus.
 
 Both variants are generated deliberately rather than by inverting the light
 one: the dark series colours are their own steps, chosen against the dark
@@ -239,9 +239,9 @@ def plot_memory(meta: dict[str, Any], rows: list[dict[str, Any]], out_dir: Path,
         )
 
     ratio = picks[0][1] / picks[1][1] if len(picks) == 2 and picks[1][1] else 0.0
-    ax.set_xlabel("resident memory for the whole index (MB)", color=theme["muted"], fontsize=9.5)
+    ax.set_xlabel("estimated index data storage (MB)", color=theme["muted"], fontsize=9.5)
     ax.set_title(
-        f"Memory for {meta['n']:,} × {meta['dim']}-d vectors — {ratio:.1f}× smaller compressed",
+        f"Estimated index storage for {meta['n']:,} × {meta['dim']}-d vectors — {ratio:.1f}× smaller compressed",
         color=theme["text"],
         fontsize=12.5,
         fontweight="semibold",

@@ -3,10 +3,10 @@
 **A vector search engine built from scratch — IVF-PQ approximate nearest
 neighbour indexing, exact re-ranking, and a REST service. NumPy only.**
 
-[![CI](https://github.com/YOUR-GITHUB-USERNAME/nanosearch/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR-GITHUB-USERNAME/nanosearch/actions/workflows/ci.yml)
+[![CI](https://github.com/Aksab1601/nanosearch/actions/workflows/ci.yml/badge.svg)](https://github.com/Aksab1601/nanosearch/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13-blue)
 ![Tests](https://img.shields.io/badge/tests-191%20passing-brightgreen)
-![Coverage](https://img.shields.io/badge/coverage-90%25-brightgreen)
+![Coverage](https://img.shields.io/badge/coverage-94%25-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 Every retrieval-augmented system, semantic search box and recommendation feed
@@ -26,7 +26,7 @@ One million 128-dimensional vectors, `nlist=1024`, PQ `m=32`, single-query
 latency, 2-core container. Recall is measured against exact search on the same
 data; queries are held out of the database.
 
-| Index | recall@10 | p50 | p95 | QPS | vs exact | RAM |
+| Index | recall@10 | p50 | p95 | QPS | vs exact | Index size (estimated) |
 |---|---|---|---|---|---|---|
 | Exact (brute force) | 1.000 | 55.4 ms | 74.6 ms | 17 | 1× | 512 MB |
 | IVF, `nprobe=2` | 0.924 | 0.53 ms | 1.15 ms | 1 647 | **105×** | 512 MB |
@@ -35,16 +35,19 @@ data; queries are held out of the database.
 | IVF-PQ, `nprobe=4` | 0.517 † | 1.71 ms | 2.98 ms | 571 | 32× | **32.7 MB** |
 | **Two-stage** (IVF-PQ + exact re-rank), `factor=32` | **0.9975** | 3.38 ms | 5.88 ms | 282 | **16×** | **32.7 MB** |
 
+**Memory note:** These figures estimate index data storage, not total application RAM. The two-stage approach also stores full-precision vectors on disk for exact re-ranking. Actual memory consumption includes additional data structures and operating-system caching.
+
 † 0.968 of the true top-10 land inside IVF-PQ's 100-item shortlist. The gap
 between those two numbers is the most interesting result in the project, and
 [section 5 of the design notes](docs/DESIGN.md#5-what-pq-actually-costs--and-the-two-stage-fix)
 is about why.
 
-**Two headline trade-offs.** Give up 0.9% of recall and queries get **52×
-faster**. Give up **15.7× of memory** and recall still lands at **0.9975** —
-because the compressed index is used as a candidate generator, and a few
-hundred of its candidates are re-scored exactly against vectors streamed from
-disk.
+**Two headline trade-offs.** In the recorded benchmark, IVF with `nprobe=4`
+achieves **99.1% recall@10** at approximately **52× the throughput** of exact
+search. The two-stage configuration achieves **99.75% recall@10** with an
+estimated compressed index size of **32.7 MB**, compared with **512 MB** for
+full-precision float32 vectors. These are index-storage estimates, not measured
+total process RAM; exact re-ranking also uses full-precision vectors on disk.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/bench/recall_vs_qps_dark.png">
@@ -53,7 +56,7 @@ disk.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/bench/memory_dark.png">
-  <img src="docs/bench/memory.png" alt="Resident memory per index backend: 512 MB for float32 storage against 32.7 MB for product-quantised codes." width="100%">
+  <img src="docs/bench/memory.png" alt="Estimated index data storage: 512 MB for float32 vectors versus 32.7 MB for product-quantised index codes and codebooks." width="100%">
 </picture>
 
 Raw output: [`docs/bench/`](docs/bench). Reproduce with `make bench-big`.
@@ -63,7 +66,7 @@ Raw output: [`docs/bench/`](docs/bench). Reproduce with `make bench-big`.
 ## Quickstart
 
 ```bash
-git clone https://github.com/YOUR-GITHUB-USERNAME/nanosearch.git
+git clone https://github.com/Aksab1601/nanosearch.git
 cd nanosearch
 pip install -e ".[service,bench,dev]"
 
